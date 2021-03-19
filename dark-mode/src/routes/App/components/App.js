@@ -5,6 +5,7 @@ import '../styles/_app.scss';
 
 function App() {
   // TODO consider moving dark mode logic into its own component.
+  // Ability to toggle dark mode state.
   const [isDarkMode, toggleDarkMode] = useState(false);
 
   return (
@@ -15,9 +16,17 @@ function App() {
         </div>
 
         {/* --The button that should toggle dark mode-- */}
+        {/* Button toggles dark mode state and renders based on it. */}
+        {/*
+          Button also adds the dark mode class to the document root based on if it's
+          toggling into or out of dark mode.
+         */}
         <button
           className="app__dark-mode-btn icon level-right"
-          onClick={() => toggleDarkMode(!isDarkMode)}
+          onClick={() => {
+            document.getElementById("doc-root").className = !isDarkMode ? 'dark-mode' : '';
+            toggleDarkMode(!isDarkMode);
+          }}
         >
           <FontAwesomeIcon
             color={isDarkMode && '#FFA500'}
