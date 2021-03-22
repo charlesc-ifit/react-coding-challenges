@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import DiscoverBlock from './DiscoverBlock/components/DiscoverBlock';
 import '../styles/_discover.scss';
-import { getNewReleases } from '../../../spotifyClient';
+import {
+  getCategories,
+  getFeaturedPlaylists,
+  getNewReleases
+} from '../../../spotifyClient';
 
 function Discover({ newReleases, playlists, categories }) {
   return (
@@ -26,6 +30,10 @@ export default class DiscoverContainer extends Component {
 
   componentDidMount() {
     console.log(`fetching all the stuff....`)
+    getCategories()
+      .then(items => this.setState({ categories: items }));
+    getFeaturedPlaylists()
+      .then(items => this.setState({ playlists: items }));
     getNewReleases()
       .then(items => this.setState({ newReleases: items }));
   }
