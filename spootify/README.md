@@ -2,6 +2,10 @@
 
 ### Difficulty: Hard | Time required: ~ 60 minutes
 
+# Notes
+Check out [Spotify Auth | Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow) for the most up-to-date
+method of auth'ing to the Spotify API.
+
 # Goals/Outcomes ✨
 - To test knowledge of consuming APIs and handling responses
 - Loading state and knowing where and how to make multiple API calls efficiently
