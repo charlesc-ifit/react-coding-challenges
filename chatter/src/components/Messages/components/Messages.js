@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import io from 'socket.io-client';
 import useSound from 'use-sound';
 import config from '../../../config';
@@ -18,6 +18,9 @@ function Messages() {
   const [playSend] = useSound(config.SEND_AUDIO_URL);
   const [playReceive] = useSound(config.RECEIVE_AUDIO_URL);
   const { setLatestMessage } = useContext(LatestMessagesContext);
+
+  const [message, onChangeMessage] = useState('');
+  const sendMessage = () => console.log(`message sent!!`);
 
   return (
     <div className="messages">
