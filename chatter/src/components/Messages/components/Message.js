@@ -12,7 +12,8 @@ export default function Message({ nextMessage, message, botTyping }) {
         {
           'messages__message--me': message.user === ME,
           'messages__message--last': (!nextMessage && (!botTyping || message.user === ME))
-            || (nextMessage && nextMessage.user !== message.user)
+            // TODO this might be a bug - confirm if obsolete after sockets is implemented
+            // || (nextMessage && nextMessage.user !== message.user)
         }
       )}
       key={message.id}

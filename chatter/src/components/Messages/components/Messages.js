@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import useSound from 'use-sound';
 
@@ -35,6 +35,12 @@ function Messages() {
     // onChangeMessage(''); // TODO clear out user input after send
   };
 
+  // Scroll to bottom
+  useEffect(() => {
+    // TODO UX clean up - scroll to show margin under last message.
+    document.querySelector(".messages__message--last").scrollIntoView({ block: 'end' });
+  });
+
   // TODO botty typing
   // TODO user receive msg
   return (
@@ -46,7 +52,7 @@ function Messages() {
             botTyping={false}
             message={{
               ...message,
-              id: `${message.user}-idx`
+              id: `${message.user}-${idx}`
             }}
             nextMessage={messages.length === (idx + 1) ? null : messages[idx + 1]}
           />

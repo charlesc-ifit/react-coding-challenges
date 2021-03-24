@@ -13,7 +13,7 @@ None
 Most of the work needs to be done in the `Messages` components.
 
 - Implement hooks such as `useEffect` and `useCallback` to handle events
-- Scroll to the bottom of the messages list when sending/receiving a message
+- Scroll to the bottom of the messages list when sending/receiving a message - DONE
 - Show the initial Botty message by default (can be found in `common/constants`) - DONE
 - Use **sockets** to:
   - Send the user's message to Botty
