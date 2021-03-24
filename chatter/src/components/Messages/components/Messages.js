@@ -21,11 +21,13 @@ function Messages() {
   const [playReceive] = useSound(config.RECEIVE_AUDIO_URL);
   const { setLatestMessage } = useContext(LatestMessagesContext);
   
+  const [isBotTyping, setIsBotTyping] = useState(false);
   const [messages, setMessages] = useState([{
     message: initialBottyMessage,
     user: 'recipient'
   }]);
   const [userMessage, onChangeMessage] = useState('');
+
   const sendMessage = () => {
     // playSend(); // TODO enable this after testing
     setMessages([...messages, {
@@ -33,23 +35,26 @@ function Messages() {
       user: 'me'
     }]);
     // onChangeMessage(''); // TODO clear out user input after send
-    socket.emit('user-message', userMessage)
+    socket.emit('user-message', userMessage);
   };
   
   // 25 - 75 re-renders when this socket.on is done w/o useCallback
   // (checked with console.log statements)
-  // Maybe useState (update message), useEffect (set up the socket)
+  // TODO is this something a useCallback can optimize?
   useEffect(() => {
-    // TODO respond to bot-typing event
+    socket.on('bot-typing', () => {
+      setIsBotTyping(true);
+    });
 
     socket.on('bot-message', (botMessage) => {
       // playReceive(); // TODO enable this after testing
+      setIsBotTyping(false);
       setMessages([
         ...messages,
-      {
-        message: botMessage,
-        user: 'recipient'
-      }
+        {
+          message: botMessage,
+          user: 'recipient'
+        }
       ]);
     });
   });
@@ -67,14 +72,17 @@ function Messages() {
       <div className="messages__list" id="message-list">
         {messages.map((message, idx) => (
           <Message
-            botTyping={false}
+            botTyping={isBotTyping}
             message={{
               ...message,
               id: `${message.user}-${idx}`
             }}
-            nextMessage={messages.length === (idx + 1) ? null : messages[idx + 1]}
+            nextMessage={messages.length >= (idx + 1) ? null : messages[idx + 1]}
           />
         ))}
+        {isBotTyping && (
+          <TypingMessage />
+        )}
       </div>
       <Footer
         message={userMessage}
