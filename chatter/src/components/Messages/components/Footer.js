@@ -15,7 +15,7 @@ export default function Footer({ sendMessage, onChangeMessage, message }) {
         onKeyDown={onKeyDown}
         placeholder="Write a message..."
         id="user-message-input"
-        onChange={e => onChangeMessage(e.target.value)}
+        onChange={onChangeMessage}
       />
       <div className="messages__footer__actions">
         <i className="far fa-smile" />

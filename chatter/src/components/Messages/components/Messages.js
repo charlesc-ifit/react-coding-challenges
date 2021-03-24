@@ -21,24 +21,42 @@ function Messages() {
   const [playReceive] = useSound(config.RECEIVE_AUDIO_URL);
   const { setLatestMessage } = useContext(LatestMessagesContext);
   
-  const [messages, setMessages] = useState([initialBottyMessage]);
+  const [messages, setMessages] = useState([{
+    message: initialBottyMessage,
+    user: 'recipient'
+  }]);
   const [userMessage, onChangeMessage] = useState('');
-  const sendMessage = () => console.log(`message sent!!`);
-  
-  // TODO user send msg ('messages__message--me', 'messages__message--last')
+  const sendMessage = () => {
+    // playSend(); // TODO enable this after testing
+    setMessages([...messages, {
+      message: userMessage,
+      user: 'me'
+    }]);
+    // onChangeMessage(''); // TODO clear out user input after send
+  };
+
   // TODO botty typing
-  // TODO user receive msg 
+  // TODO user receive msg
   return (
     <div className="messages">
       <Header />
       <div className="messages__list" id="message-list">
-        {messages.map((msg, idx) => (
-          <div className={`messages__message${(idx + 1) === messages.length ? ' messages__message--last' : ''}`}>
-            {msg}
-          </div>
+        {messages.map((message, idx) => (
+          <Message
+            botTyping={false}
+            message={{
+              ...message,
+              id: `${message.user}-idx`
+            }}
+            nextMessage={messages.length === (idx + 1) ? null : messages[idx + 1]}
+          />
         ))}
       </div>
-      <Footer message={userMessage} sendMessage={sendMessage} onChangeMessage={onChangeMessage} />
+      <Footer
+        message={userMessage}
+        sendMessage={sendMessage}
+        onChangeMessage={e => onChangeMessage(e.target.value)}
+      />
     </div>
   );
 }
