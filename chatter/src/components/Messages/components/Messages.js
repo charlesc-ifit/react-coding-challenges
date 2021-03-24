@@ -33,7 +33,27 @@ function Messages() {
       user: 'me'
     }]);
     // onChangeMessage(''); // TODO clear out user input after send
+    socket.emit('user-message', userMessage)
   };
+  
+  // 25 - 75 re-renders when this socket.on is done w/o useCallback
+  // (checked with console.log statements)
+  // Maybe useState (update message), useEffect (set up the socket)
+  useEffect(() => {
+    // TODO respond to bot-typing event
+
+    socket.on('bot-message', (botMessage) => {
+      // playReceive(); // TODO enable this after testing
+      setMessages([
+        ...messages,
+      {
+        message: botMessage,
+        user: 'recipient'
+      }
+      ]);
+    });
+  });
+
 
   // Scroll to bottom
   useEffect(() => {
@@ -41,8 +61,6 @@ function Messages() {
     document.querySelector(".messages__message--last").scrollIntoView({ block: 'end' });
   });
 
-  // TODO botty typing
-  // TODO user receive msg
   return (
     <div className="messages">
       <Header />

@@ -16,9 +16,9 @@ Most of the work needs to be done in the `Messages` components.
 - Scroll to the bottom of the messages list when sending/receiving a message - DONE
 - Show the initial Botty message by default (can be found in `common/constants`) - DONE
 - Use **sockets** to:
-  - Send the user's message to Botty
+  - Send the user's message to Botty - DONE
   - Show a typing message when Botty is typing
-  - Handle incoming Botty messages and display them
+  - Handle incoming Botty messages and display them - DONE
 
 # Botty Socket Events
 See the [Botty server](https://github.com/alexgurr/botty) documentation for more information.
