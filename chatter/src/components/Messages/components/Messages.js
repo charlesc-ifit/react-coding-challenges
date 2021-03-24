@@ -24,16 +24,19 @@ function Messages() {
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [messages, setMessages] = useState([{
     message: initialBottyMessage,
-    user: 'recipient'
+    user: 'bot'
   }]);
   const [userMessage, onChangeMessage] = useState('');
 
   const sendMessage = () => {
     // playSend(); // TODO enable this after testing
-    setMessages([...messages, {
-      message: userMessage,
-      user: 'me'
-    }]);
+    setMessages([
+      ...messages,
+      {
+        message: userMessage,
+        user: 'me'
+      }
+    ]);
     // onChangeMessage(''); // TODO clear out user input after send
     socket.emit('user-message', userMessage);
   };
@@ -44,16 +47,18 @@ function Messages() {
   useEffect(() => {
     socket.on('bot-typing', () => {
       setIsBotTyping(true);
+      setLatestMessage('bot', 'Typing...');
     });
 
     socket.on('bot-message', (botMessage) => {
       // playReceive(); // TODO enable this after testing
       setIsBotTyping(false);
+      setLatestMessage('bot', botMessage);
       setMessages([
         ...messages,
         {
           message: botMessage,
-          user: 'recipient'
+          user: 'bot'
         }
       ]);
     });

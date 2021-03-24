@@ -12,7 +12,7 @@ None
 # Requirements 📖
 Most of the work needs to be done in the `Messages` components.
 
-- Implement hooks such as `useEffect` and `useCallback` to handle events
+- Implement hooks such as `useEffect` and `useCallback` to handle events - DONE
 - Scroll to the bottom of the messages list when sending/receiving a message - DONE
 - Show the initial Botty message by default (can be found in `common/constants`) - DONE
 - Use **sockets** to: - DONE
@@ -21,11 +21,12 @@ Most of the work needs to be done in the `Messages` components.
   - Handle incoming Botty messages and display them - DONE
 
 - Cleanup items
+  - should `setLatestMessage` (a `useContext` hook) be used somewhere? - DONE
+    - `setLatestMessage` updates the Sidebar chat preview for each user.
   - clear out user input after they send a message
   - fix bug where multiple messages bounce after user sends/receives a message
   - UX clean up - scroll to show margin under last message.
   - where should useCallback be used?
-  - should `setLatestMessage` (a `useContext` hook) be used somewhere?
 
 # Botty Socket Events
 See the [Botty server](https://github.com/alexgurr/botty) documentation for more information.
